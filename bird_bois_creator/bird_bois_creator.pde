@@ -1,3 +1,8 @@
+//sound
+import processing.sound.*;
+SoundFile music;
+//images
+
 PImage[] eyesImg = new PImage[6];
 PImage[] plumageImg = new PImage[4];
 PImage[] beakImg = new PImage[6];
@@ -23,7 +28,7 @@ String[] attributes = {"eyes", "plumage", "beak", "feet", "pattern", "wings"};
 int selectedAttribute = 0; 
 
 void setup() 
-{
+{ 
   size(1000, 1000);
   //import images and assign them to arraws
   for (int i = 0; i < eyesImg.length; i ++) {
@@ -47,6 +52,9 @@ void setup()
   for (int i = 0; i < backgroundImg.length; i ++) {
     backgroundImg[i] = loadImage("bg" + i +".png");
   }
+  
+  music = new SoundFile(this, "music.mp3");
+  music.amp(0.5);
 } 
 
 void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) { //drawing the bird
@@ -104,6 +112,7 @@ void draw() {
 
 void keyPressed() {
   showTitle = false;
+  music.play();
   if (key == CODED) {
 
     //up/down to change what attribute is selected
