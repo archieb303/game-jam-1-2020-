@@ -12,15 +12,16 @@ PFont font;
 PImage instruct;
 
 PImage[] eyesImg = new PImage[6];
-PImage[] plumageImg = new PImage[4];
+PImage[] plumageImg = new PImage[5];
 PImage[] beakImg = new PImage[6];
-PImage[] feetImg = new PImage[6];
-PImage[] patternImg = new PImage[5];
-PImage[] wingsImg = new PImage[5];
+PImage[] feetImg = new PImage[7];
+PImage[] patternImg = new PImage[6];
+PImage[] wingsImg = new PImage[6];
 PImage[] backgroundImg = new PImage[4];
 
 boolean showTitle = true;
 boolean showUI = true;
+boolean finished = false; //for tracking whether to launch the backgrounds
 
 //contains value of the current selected images
 int eyes = 0;
@@ -35,6 +36,7 @@ int selectedAttribute = 0;
 
 void setup() 
 { 
+  background();//runs ready to be switched on by mouse
   font = createFont("Pixeled.ttf", 32);
   textFont(font);
   
@@ -77,13 +79,20 @@ void movieEvent(Movie m) {
 
 
 void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) { //drawing the bird
-  image(loadImage("body.png"), 0, 0, 1000, 1000);
-  image(patternImg[pattern], 0, 0, 1000, 1000);
-  image(plumageImg[plumage], 0, 0, 1000, 1000);
-  image(beakImg[beak], 0, 0, 1000, 1000);
-  image(feetImg[feet], 0, 0, 1000, 1000);
-  image(eyesImg[eyes], 0, 0, 1000, 1000);
-  image(wingsImg[wings], 0, 0, 1000, 1000);
+  image(loadImage("body.png"), 0, 0);
+  image(patternImg[pattern], 0, 0);
+  image(plumageImg[plumage], 0, 0);
+  image(beakImg[beak], 0, 0);
+  image(feetImg[feet], 0, 0);
+  image(eyesImg[eyes], 0, 0);
+  image(wingsImg[wings], 0, 0);
+}
+
+void background(){
+  if(finished == true){
+    
+  }
+  
 }
 
 void draw() {
@@ -102,7 +111,7 @@ void draw() {
       } 
       
       if(mouseX >= 5 && mouseX <=40){ //exit
-        exit(); //temporary function
+        finished = true; //temporary function
       } 
     }
     
