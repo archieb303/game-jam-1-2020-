@@ -62,11 +62,11 @@ void setup()
 
 void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) { //drawing the bird
   image(loadImage("body.png"), 0, 0, 1000, 1000);
-  image(eyesImg[eyes], 0, 0, 1000, 1000);
+  image(patternImg[pattern], 0, 0, 1000, 1000);
   image(plumageImg[plumage], 0, 0, 1000, 1000);
   image(beakImg[beak], 0, 0, 1000, 1000);
   image(feetImg[feet], 0, 0, 1000, 1000);
-  image(patternImg[pattern], 0, 0, 1000, 1000);
+  image(eyesImg[eyes], 0, 0, 1000, 1000);
   image(wingsImg[wings], 0, 0, 1000, 1000);
 }
 
