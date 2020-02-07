@@ -1,10 +1,13 @@
 PImage[] eyesImg = new PImage[6];
-//PImage[] plumageImg = new PImage[6];
+PImage[] plumageImg = new PImage[4];
 PImage[] beakImg = new PImage[6];
 PImage[] feetImg = new PImage[6];
-//PImage[] patternImg = new PImage[6];
+PImage[] patternImg = new PImage[5];
 PImage[] wingsImg = new PImage[5];
 PImage[] backgroundImg = new PImage[4];
+
+boolean showTitle = true;
+boolean showUI = true;
 
 //contains value of the current selected images
 int eyes = 0;
@@ -14,7 +17,9 @@ int feet = 0;
 int pattern = 0;
 int wings = 0; 
 
-String[] attributes = {"eyes","plumage","beak","feet","pattern","wings"};
+
+
+String[] attributes = {"eyes", "plumage", "beak", "feet", "pattern", "wings"};
 int selectedAttribute = 0; 
 
 void setup() 
@@ -24,18 +29,18 @@ void setup()
   for (int i = 0; i < eyesImg.length; i ++) {
     eyesImg[i] = loadImage("eyes" + i +".png");
   }
-  //for (int i = 0; i < plumageImg.length; i ++) {
-  //plumageImg[i] = loadImage("plumage" + i +".png");
-  //  }
+  for (int i = 0; i < plumageImg.length; i ++) {
+    plumageImg[i] = loadImage("plumage" + i +".png");
+  }
   for (int i = 0; i < beakImg.length; i ++) {
     beakImg[i] = loadImage("beak" + i +".png");
   }
   for (int i = 0; i < feetImg.length; i ++) {
     feetImg[i] = loadImage("feet" + i +".png");
   }
-  // for (int i = 0; i < patternImg.length; i ++) {
-  //   patternImg[i] = loadImage("pattern" + i +".png");
-  // }
+  for (int i = 0; i < patternImg.length; i ++) {
+    patternImg[i] = loadImage("pattern" + i +".png");
+  }
   for (int i = 0; i < wingsImg.length; i ++) {
     wingsImg[i] = loadImage("wings" + i +".png");
   }
@@ -45,28 +50,60 @@ void setup()
 } 
 
 void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) { //drawing the bird
-  image(loadImage("body.png"),0,0,1000,1000);
-  image(eyesImg[eyes], 0, 0,1000,1000);
-  //image(plumageImg[plumage], 0, 0);
-  image(beakImg[beak], 0, 0,1000,1000);
-  image(feetImg[feet], 0, 0,1000,1000);
-  //image(patternImg[pattern], 0, 0);
-  image(wingsImg[wings], 0, 0,1000,1000);
+  image(loadImage("body.png"), 0, 0, 1000, 1000);
+  image(eyesImg[eyes], 0, 0, 1000, 1000);
+  image(plumageImg[plumage], 0, 0);
+  image(beakImg[beak], 0, 0, 1000, 1000);
+  image(feetImg[feet], 0, 0, 1000, 1000);
+  image(patternImg[pattern], 0, 0);
+  image(wingsImg[wings], 0, 0, 1000, 1000);
 }
 
 void draw() {
-  noTint();
-  image(backgroundImg[1], 0, 0,1000,1000);
-  //tint(0,0,0);
-  display(eyes, plumage, beak, feet, pattern, wings);
-  textAlign(CENTER);
-  textSize(50);
-  fill(0);
-  text("Currently editing: "+attributes[selectedAttribute],500,100);
-  noFill();
+  if (showTitle == true) {
+    image(loadImage("title.png"), 0, 0, 1000, 1000);
+    textAlign(CENTER);
+    textSize(50);
+    fill(0);
+    text("Press Any Key To Begin...", 500, 900);
+    noFill();
+  } else if (showUI == true) {
+    image(loadImage("ui.png"), 0, 0, 1000, 1000);
+    if (selectedAttribute == 0) {
+      image(eyesImg[eyes], -400, -300, 900, 900);
+    }
+    if (selectedAttribute == 1) {
+      image(plumageImg[plumage], -120, -50, 600, 600);
+    }
+    if (selectedAttribute == 2) {
+      image(beakImg[beak], -400, -300, 900, 900);
+    }
+    if (selectedAttribute == 3) {
+      image(feetImg[feet], -400, -400, 900, 900);
+    }
+    if (selectedAttribute == 4) {
+      image(patternImg[pattern], -300, -150, 700, 700);
+    }
+    if (selectedAttribute == 5) { 
+      image(wingsImg[wings], -250, -200, 700, 700);
+    }
+    textAlign(LEFT);
+    textSize(30);
+    fill(0);
+    text("Choose your "+attributes[selectedAttribute], 20, 420);
+    noFill();
+    display(eyes, plumage, beak, feet, pattern, wings);
+  } else {
+
+    noTint();
+    image(backgroundImg[1], 0, 0, 1000, 1000);
+    //tint(0,0,0);
+    //  display(eyes, plumage, beak, feet, pattern, wings);
+  }
 }
 
 void keyPressed() {
+  showTitle = false;
   if (key == CODED) {
 
     //up/down to change what attribute is selected
@@ -102,20 +139,20 @@ void keyPressed() {
 
 
   //left/right to change the plumage
-  //if (selectedAttribute == 1) {
-  //  if (keyCode == LEFT) {
-  //    plumage = plumage+1;
-  //    if (plumage > plumageImg.length-1) { //if it gets to the end cycle back to 0
-  //      plumage = 0;
-  //    }
-  //    if (keyCode == RIGHT) {
-  //      plumage = plumage-1;
-  //      if (plumage < 0) { //if it gets to 0 cycle back to 5
-  //        plumage = plumageImg.length-1;
-  //      }
-  //    }
-  //  }
-  //}
+  if (selectedAttribute == 1) {
+    if (keyCode == LEFT) {
+      plumage = plumage+1;
+      if (plumage > plumageImg.length-1) { //if it gets to the end cycle back to 0
+        plumage = 0;
+      }
+      if (keyCode == RIGHT) {
+        plumage = plumage-1;
+        if (plumage < 0) { //if it gets to 0 cycle back to 5
+          plumage = plumageImg.length-1;
+        }
+      }
+    }
+  }
 
   //left/right to change the beak
   if (selectedAttribute == 2) {
@@ -152,20 +189,21 @@ void keyPressed() {
 
 
   ////left/right to change the pattern
-  //if (selectedAttribute == 4) {
-  //  if (keyCode == LEFT) {
-  //    pattern = pattern+1;
-  //    if (pattern > patternImg.length-1) { //if it gets to the end cycle back to 0
-  //      pattern = 0;
-  //    }
-  //    if (keyCode == RIGHT) {
-  //      pattern = pattern-1;
-  //      if (pattern< 0) { //if it gets to 0 cycle back to 5
-  //        pattern= patternImg.length-1;
-  //      }
-  //    }
-  //  }
-  //}
+  if (selectedAttribute == 4) {
+    if (keyCode == LEFT) {
+      pattern = pattern+1;
+      if (pattern > patternImg.length-1) { //if it gets to the end cycle back to 0
+        pattern = 0;
+      }
+    }
+    if (keyCode == RIGHT) {
+      pattern = pattern-1;
+      if (pattern< 0) { //if it gets to 0 cycle back to 5
+        pattern= patternImg.length-1;
+      }
+    }
+  }
+
 
   //left/right to change the wings
   if (selectedAttribute == 5) {
