@@ -1,8 +1,13 @@
 //sound
 import processing.sound.*;
+SoundFile music;
+//video
 import processing.video.*;
 Movie title;
-SoundFile music;
+
+//font setup
+PFont font;
+
 //images
 PImage instruct;
 
@@ -25,13 +30,14 @@ int feet = 0;
 int pattern = 0;
 int wings = 0; 
 
-
-
 String[] attributes = {"eyes", "plumage", "beak", "feet", "pattern", "wings"};
 int selectedAttribute = 0; 
 
 void setup() 
 { 
+  font = createFont("Pixeled.ttf", 32);
+  textFont(font);
+  
   size(1000, 1000);
   //import images and assign them to arraws
   for (int i = 0; i < eyesImg.length; i ++) {
@@ -84,7 +90,7 @@ void draw() {
   if (showTitle == true) {
     image(title,0,0);
     textAlign(CENTER);
-    textSize(50);
+    textSize(32);
     fill(0);
     text("Press Any Key To Begin...", 500, 900);
     noFill();
