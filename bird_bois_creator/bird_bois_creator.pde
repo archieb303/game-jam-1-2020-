@@ -89,6 +89,17 @@ void draw() {
     text("Press Any Key To Begin...", 500, 900);
     noFill();
   } else if (showUI == true) {
+
+    if(mouseY >= 5 && mouseY <= 40 && mousePressed){
+      if(mouseX >= 140 && mouseX <= 170){ //finish
+        exit();
+      } 
+      
+      if(mouseX >= 5 && mouseX <=40){ //exit
+        exit();
+      } 
+    }
+    
     image(loadImage("ui.png"), 0, 0, 1000, 1000);
     if (selectedAttribute == 0) {
       image(eyesImg[eyes], -400, -300, 900, 900);
