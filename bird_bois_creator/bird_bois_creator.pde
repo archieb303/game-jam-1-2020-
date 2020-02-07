@@ -2,6 +2,7 @@
 import processing.sound.*;
 SoundFile music;
 //images
+PImage instruct;
 
 PImage[] eyesImg = new PImage[6];
 PImage[] plumageImg = new PImage[4];
@@ -52,6 +53,8 @@ void setup()
   for (int i = 0; i < backgroundImg.length; i ++) {
     backgroundImg[i] = loadImage("bg" + i +".png");
   }
+  
+  instruct = loadImage("instructions.png");
   
   music = new SoundFile(this, "music.mp3");
   music.amp(0.5);
@@ -108,13 +111,25 @@ void draw() {
     //tint(0,0,0);
     //  display(eyes, plumage, beak, feet, pattern, wings);
   }
+  
+  if(showTitle == false && musicp == true){
+    music.play();
+    musicp = false;
+  }
+
 }
+
+boolean musicp = true;
 
 void keyPressed() {
   showTitle = false;
-  music.play();
+  
+  if (key == 'i'){
+    image(instruct,0,0);
+  }
+ 
   if (key == CODED) {
-
+    
     //up/down to change what attribute is selected
     if (keyCode == UP) {
       selectedAttribute = selectedAttribute+1;
