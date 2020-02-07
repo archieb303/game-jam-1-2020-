@@ -1,5 +1,7 @@
 //sound
 import processing.sound.*;
+import processing.video.*;
+Movie title;
 SoundFile music;
 //images
 PImage instruct;
@@ -56,9 +58,17 @@ void setup()
   
   instruct = loadImage("instructions.png");
   
+  title = new Movie(this, "title.MP4");
+  title.loop();
+  
   music = new SoundFile(this, "music.mp3");
   music.amp(0.5);
 } 
+
+void movieEvent(Movie m) {
+  m.read();
+}
+
 
 void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) { //drawing the bird
   image(loadImage("body.png"), 0, 0, 1000, 1000);
@@ -72,7 +82,7 @@ void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) 
 
 void draw() {
   if (showTitle == true) {
-    image(loadImage("title.png"), 0, 0, 1000, 1000);
+    image(title,0,0);
     textAlign(CENTER);
     textSize(50);
     fill(0);
