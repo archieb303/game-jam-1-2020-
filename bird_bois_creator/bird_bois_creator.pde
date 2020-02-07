@@ -90,13 +90,13 @@ void draw() {
     noFill();
   } else if (showUI == true) {
 
-    if(mouseY >= 5 && mouseY <= 40 && mousePressed){
+    if(mouseY >= 5 && mouseY <= 40 && mousePressed){ //eventually add the event to trigger on mouse release, having mousePressed shade the button to show it's pressed
       if(mouseX >= 140 && mouseX <= 170){ //finish
         exit();
       } 
       
       if(mouseX >= 5 && mouseX <=40){ //exit
-        exit();
+        exit(); //temporary function
       } 
     }
     
