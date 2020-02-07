@@ -80,7 +80,9 @@ void movieEvent(Movie m) {
 
 void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) { //drawing the bird
   image(loadImage("body.png"), 0, 0);
+  tint(0, 0, 0, 126); 
   image(patternImg[pattern], 0, 0);
+  noTint(); 
   image(plumageImg[plumage], 0, 0);
   image(beakImg[beak], 0, 0);
   image(feetImg[feet], 0, 0);
