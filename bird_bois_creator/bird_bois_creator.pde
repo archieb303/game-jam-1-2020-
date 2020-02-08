@@ -14,11 +14,13 @@ PImage instruct;
 PImage[] eyesImg = new PImage[6];
 PImage[] plumageImg = new PImage[5];
 PImage[] beakImg = new PImage[6];
-PImage[] feetImg = new PImage[7];
-PImage[] patternImg = new PImage[6];
-PImage[] wingsImg = new PImage[6];
+PImage[] feetImg = new PImage[6];
+PImage[] patternImg = new PImage[5];
+PImage[] wingsImg = new PImage[5];
 PImage[] backgroundImg = new PImage[4];
 
+boolean mouseOverExit = false;
+boolean mouseOverfinish = false;
 boolean showTitle = true;
 boolean showUI = true;
 boolean finished = false; //for tracking whether to launch the backgrounds
@@ -31,6 +33,8 @@ int feet = 0;
 int pattern = 0;
 int wings = 0; 
 
+int randomBG;
+
 String[] attributes = {"eyes", "plumage", "beak", "feet", "pattern", "wings"};
 int selectedAttribute = 0; 
 
@@ -39,7 +43,7 @@ void setup()
   background();//runs ready to be switched on by mouse
   font = createFont("Pixeled.ttf", 32);
   textFont(font);
-  
+
   size(1000, 1000);
   //import images and assign them to arraws
   for (int i = 0; i < eyesImg.length; i ++) {
@@ -63,12 +67,12 @@ void setup()
   for (int i = 0; i < backgroundImg.length; i ++) {
     backgroundImg[i] = loadImage("bg" + i +".png");
   }
-  
+
   instruct = loadImage("instructions.png");
-  
+
   title = new Movie(this, "title.MP4");
   title.loop();
-  
+
   music = new SoundFile(this, "music.mp3");
   music.amp(0.5);
 } 
@@ -81,25 +85,23 @@ void movieEvent(Movie m) {
 void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) { //drawing the bird
   image(loadImage("body.png"), 0, 0);
   tint(0, 0, 0, 126); 
-  image(patternImg[pattern], 0, 0);
+  image(patternImg[pattern], 0, 0, 1000, 1000);
   noTint(); 
-  image(plumageImg[plumage], 0, 0);
+  image(plumageImg[plumage], 0, 0, 1000, 1000);
   image(beakImg[beak], 0, 0);
   image(feetImg[feet], 0, 0);
   image(eyesImg[eyes], 0, 0);
   image(wingsImg[wings], 0, 0);
 }
 
-void background(){
-  if(finished == true){
-    
+void background() {
+  if (finished == true) {
   }
-  
 }
 
 void draw() {
   if (showTitle == true) {
-    image(title,0,0);
+    image(title, 0, 0);
     textAlign(CENTER);
     textSize(32);
     fill(0);
@@ -107,16 +109,6 @@ void draw() {
     noFill();
   } else if (showUI == true) {
 
-    if(mouseY >= 5 && mouseY <= 40 && mousePressed){ //eventually add the event to trigger on mouse release, having mousePressed shade the button to show it's pressed
-      if(mouseX >= 140 && mouseX <= 170){ //finish
-        exit();
-      } 
-      
-      if(mouseX >= 5 && mouseX <=40){ //exit
-        finished = true; //temporary function
-      } 
-    }
-    
     image(loadImage("ui.png"), 0, 0, 1000, 1000);
     if (selectedAttribute == 0) {
       image(eyesImg[eyes], -400, -300, 900, 900);
@@ -142,15 +134,14 @@ void draw() {
     text("Choose your "+attributes[selectedAttribute], 20, 420);
     noFill();
     display(eyes, plumage, beak, feet, pattern, wings);
-  } else {
+  } else if (finished == true) {
 
     noTint();
-    image(backgroundImg[1], 0, 0, 1000, 1000);
-    //tint(0,0,0);
-    //  display(eyes, plumage, beak, feet, pattern, wings);
+    image(backgroundImg[randomBG], 0, 0, 1000, 1000);
+    display(eyes, plumage, beak, feet, pattern, wings);
   }
-  
-  if(showTitle == false && musicp == true){
+
+  if (showTitle == false && musicp == true) {
     music.play();
     musicp = false;
   }
@@ -158,15 +149,30 @@ void draw() {
 
 boolean musicp = true;
 
+void mousePressed() {
+
+  if (mouseY >= 5 && mouseY <= 40) { //eventually add the event to trigger on mouse release, having mousePressed shade the button to show it's pressed
+    if (mouseX >= 140 && mouseX <= 170) { //finish
+      finished = true; //temporary function
+      showUI = false;
+      randomBG=int(random(0,3));
+    } 
+
+    if (mouseX >= 5 && mouseX <=40) { //exit
+      exit();
+    }
+  }
+}
+
 void keyPressed() {
   showTitle = false;
-  
-  if (key == 'i'){
-    image(instruct,0,0);
+
+  if (key == 'i') {
+    image(instruct, 0, 0);
   }
- 
+
   if (key == CODED) {
-    
+
     //up/down to change what attribute is selected
     if (keyCode == UP) {
       selectedAttribute = selectedAttribute+1;
