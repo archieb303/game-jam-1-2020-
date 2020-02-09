@@ -157,6 +157,8 @@ void draw() {
     noFill();
     display(eyes, plumage, beak, feet, pattern, wings);
     
+    text("hold 'i' for instructions", 370,200);
+    
     text("red", 50,700);
     text("green", 50,800);
     text("blue", 50,900);
@@ -194,7 +196,7 @@ void draw() {
             }
           }
       }
-      if(mouseX >= 240 && mouseX <= 270){ // leftt arrows
+      if(mouseX >= 240 && mouseX <= 270){ // left arrows
           if(mouseY >= 660 && mouseY <= 690){
             r-=1;
             if(r <= 0){
@@ -218,10 +220,24 @@ void draw() {
     
     
   } else if (finished == true) {
-
+    int alpha = 100;
+    
     noTint();
     image(backgroundImg[randomBG], 0, 0, 1000, 1000);
     display(eyes, plumage, beak, feet, pattern, wings);
+    
+    noStroke();
+    fill(230,230,230,alpha);
+    rect(80,60,150,50);
+    
+    fill(0,0,0,alpha+60);
+    text("back", 100, 100);
+    
+    if(mouseX >= 80 && mouseX <= 230 && mouseY >= 60 && mouseY <= 110){
+      alpha = 200;
+    }
+    else {alpha = 100;}
+    
   }
 
   if (showTitle == false && musicp == true) {
