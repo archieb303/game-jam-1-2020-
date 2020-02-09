@@ -110,8 +110,10 @@ void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) 
   image(patternImg[pattern], x, y, 1000, 1000);
   noTint(); 
   image(plumageImg[plumage], x, y, 1000, 1000);
+  tint(255, 255, 160); 
   image(beakImg[beak], x, y);
   image(feetImg[feet], x, y);
+  noTint();
   image(eyesImg[eyes], x, y);
   tint(r,g,b);
   image(wingsImg[wings], x, y);
