@@ -93,7 +93,7 @@ void setup()
   title.loop();
 
   music = new SoundFile(this, "music.mp3");
-  music.amp(0.8);
+  music.amp(1);
 } 
 
 void movieEvent(Movie m) {
