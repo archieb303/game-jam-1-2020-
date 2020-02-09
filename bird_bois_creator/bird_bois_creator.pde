@@ -18,6 +18,9 @@ PImage right1;
 PImage left2;
 PImage right2;
 
+PImage dimred;
+PImage dimgreen;
+
 PImage[] eyesImg = new PImage[6];
 PImage[] plumageImg = new PImage[5];
 PImage[] beakImg = new PImage[6];
@@ -75,6 +78,9 @@ void setup()
   }
 
   instruct = loadImage("instructions.png");
+  
+  dimred = loadImage("dimred.png");
+  dimgreen = loadImage("dimgreen.png");
 
   left = loadImage("left.png");
   right = loadImage("right.png");
@@ -218,13 +224,42 @@ void draw() {
       }
     }
     
-    
-  } else if (finished == true) {
+    if (mouseY >= 5 && mouseY <= 40) { //eventually add the event to trigger on mouse release, having mousePressed shade the button to show it's pressed
+      if (mouseX >= 140 && mouseX <= 170) { //finish
+        image(dimgreen,0,0);
+        if(mousePressed){
+          finished = true;
+          showUI = false;
+          randomBG = 0;
+          image(backgroundImg[randomBG], 0, 0);
+          x = bgX;
+          y= bgY;
+        }
+      } 
+  
+      if (mouseX >= 5 && mouseX <=40) { //exit
+        image(dimred,0,0);
+        if(mousePressed){
+          exit();
+        }
+      }
+  }
+}
+  if (finished == true) {
     int alpha = 100;
     
     noTint();
     image(backgroundImg[randomBG], 0, 0, 1000, 1000);
     display(eyes, plumage, beak, feet, pattern, wings);
+    
+    if(mouseY >= 60 && mouseY <= 110 && mouseX >= 80 && mouseX <= 230){
+      alpha = 180;
+      if(mousePressed){
+        finished = false;
+        showUI = true;
+      }
+    }
+    else {alpha = 100;}
     
     noStroke();
     fill(230,230,230,alpha);
@@ -232,11 +267,6 @@ void draw() {
     
     fill(0,0,0,alpha+60);
     text("back", 100, 100);
-    
-    if(mouseX >= 80 && mouseX <= 230 && mouseY >= 60 && mouseY <= 110){
-      alpha = 200;
-    }
-    else {alpha = 100;}
     
   }
 
@@ -246,25 +276,8 @@ void draw() {
   }
 }
 
+
 boolean musicp = true;
-
-void mousePressed() {
-
-  if (mouseY >= 5 && mouseY <= 40) { //eventually add the event to trigger on mouse release, having mousePressed shade the button to show it's pressed
-    if (mouseX >= 140 && mouseX <= 170) { //finish
-      finished = true;
-      showUI = false;
-      randomBG = 0;
-      image(backgroundImg[randomBG], 0, 0);
-      x = bgX;
-      y= bgY;
-    } 
-
-    if (mouseX >= 5 && mouseX <=40) { //exit
-      exit();
-    }
-  }
-}
 
 void keyPressed() {
   showTitle = false;
