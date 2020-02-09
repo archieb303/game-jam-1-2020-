@@ -11,6 +11,13 @@ PFont font;
 //images
 PImage instruct;
 
+PImage left;
+PImage right;
+PImage left1;
+PImage right1;
+PImage left2;
+PImage right2;
+
 PImage[] eyesImg = new PImage[6];
 PImage[] plumageImg = new PImage[5];
 PImage[] beakImg = new PImage[6];
@@ -42,7 +49,7 @@ void setup()
 { 
   font = createFont("Pixeled.ttf", 32);
   textFont(font);
-
+  
   size(1000, 1000);
   //import images and assign them to arraws
   for (int i = 0; i < eyesImg.length; i ++) {
@@ -69,11 +76,18 @@ void setup()
 
   instruct = loadImage("instructions.png");
 
+  left = loadImage("left.png");
+  right = loadImage("right.png");
+  left1 = loadImage("left1.png");
+  right1 = loadImage("right1.png");
+  left2 = loadImage("left2.png");
+  right2 = loadImage("right2.png");
+
   title = new Movie(this, "title.MP4");
   title.loop();
 
   music = new SoundFile(this, "music.mp3");
-  music.amp(0.7);
+  music.amp(0.8);
 } 
 
 void movieEvent(Movie m) {
@@ -84,6 +98,7 @@ int x = 0;
 int y = 0;
 
 void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) { //drawing the bird
+  tint(r,g,b);
   image(loadImage("body.png"), x, y);
   tint(0, 0, 0, 126); 
   image(patternImg[pattern], x, y, 1000, 1000);
@@ -92,11 +107,17 @@ void display(int eyes, int plumage, int beak, int feet, int pattern, int wings) 
   image(beakImg[beak], x, y);
   image(feetImg[feet], x, y);
   image(eyesImg[eyes], x, y);
+  tint(r,g,b);
   image(wingsImg[wings], x, y);
+  noTint();
 }
 
 int bgX = -170;
 int bgY = 100;
+
+int r = 255;
+int g = 255;
+int b = 255;
 
 void draw() {
   if (showTitle == true) {
@@ -109,6 +130,7 @@ void draw() {
   } else if (showUI == true) {
     x = 0;
     y = 0;
+    
     image(loadImage("ui.png"), 0, 0, 1000, 1000);
     if (selectedAttribute == 0) {
       image(eyesImg[eyes], -400, -300, 900, 900);
@@ -134,6 +156,67 @@ void draw() {
     text("Choose your "+attributes[selectedAttribute], 20, 420);
     noFill();
     display(eyes, plumage, beak, feet, pattern, wings);
+    
+    text("red", 50,700);
+    text("green", 50,800);
+    text("blue", 50,900);
+    text(r, 300,700);
+    text(g, 300,800);
+    text(b, 300,900);
+    
+    image(left,200,620, 150,150);
+    image(right,340,620, 150,150);
+    
+    image(left1,200,720, 150,150);
+    image(right1,340,720, 150,150);
+    
+    image(left2,200,820, 150,150);
+    image(right2,340,820, 150,150);
+    
+    if(mousePressed){
+      if(mouseX >= 390 && mouseX <= 420){ // right arrows
+          if(mouseY >= 660 && mouseY <= 690){
+            r+=1;
+            if(r>=255){
+              r = 255;
+            }
+          } 
+          if(mouseY >= 760 && mouseY <= 790){
+            g+=1;
+            if(g >=255){
+              g = 255;
+            }
+          }
+          if(mouseY >= 860 && mouseY <= 890){
+            b+=1;
+            if(b >=255){
+              b = 255;
+            }
+          }
+      }
+      if(mouseX >= 240 && mouseX <= 270){ // leftt arrows
+          if(mouseY >= 660 && mouseY <= 690){
+            r-=1;
+            if(r <= 0){
+              r = 0;
+            }
+          } 
+          if(mouseY >= 760 && mouseY <= 790){
+            g-=1;
+            if(g <= 0){
+              g = 0;
+            }
+          }
+          if(mouseY >= 860 && mouseY <= 890){
+            b-=1;
+            if(b <= 0){
+              b = 0;
+            }
+          }
+      }
+    }
+    
+    
   } else if (finished == true) {
 
     noTint();
@@ -185,7 +268,6 @@ void keyPressed() {
         }
       }
     }
-  
   }
   
   if(finished == false){
