@@ -247,6 +247,9 @@ void draw() {
 }
   if (finished == true) {
     int alpha = 100;
+    int alpha2 = 100;
+    
+    boolean showBack = true;
     
     noTint();
     image(backgroundImg[randomBG], 0, 0, 1000, 1000);
@@ -261,13 +264,29 @@ void draw() {
     }
     else {alpha = 100;}
     
+    if(mouseY >= 60 && mouseY <= 110 && mouseX >= 590 && mouseX <= 930){
+      alpha2 = 180;
+      if(mousePressed){
+        showBack = false;
+        saveFrame("bird-##.png"); 
+      }
+    }
+    else {alpha2 = 100;}
+    
+    if(showBack == true){
+      noStroke();
+      fill(230,230,230,alpha);
+      rect(80,60,150,50);
+      
+      fill(0,0,0,alpha+60);
+      text("back", 100, 100);
+    }
     noStroke();
-    fill(230,230,230,alpha);
-    rect(80,60,150,50);
+    fill(230,230,230,alpha2);
+    rect(590,60,320,50);
     
-    fill(0,0,0,alpha+60);
-    text("back", 100, 100);
-    
+    fill(0,0,0,alpha2+60);
+    text("screenshot", 600, 100);
   }
 
   if (showTitle == false && musicp == true) {
